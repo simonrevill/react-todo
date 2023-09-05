@@ -11,9 +11,18 @@ const Todo = () => {
       {
         id: uuid(),
         text: text,
+        completed: false,
       },
       ...prevTodos,
     ]);
+  };
+
+  const toggleCompleted = (id: string) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
   };
 
   return (
@@ -21,7 +30,15 @@ const Todo = () => {
       <TodoInput addTodo={addTodo} />
       <ul>
         {todos.map((todo) => (
-          <li key={todo.id}>{todo.text}</li>
+          <li
+            key={todo.id}
+            {...(todo.completed && {
+              "data-completed": "true",
+            })}
+            onClick={() => toggleCompleted(todo.id)}
+          >
+            {todo.text}
+          </li>
         ))}
       </ul>
     </div>
