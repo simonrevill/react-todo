@@ -1,11 +1,10 @@
-import { ChangeEvent, KeyboardEvent, useState } from "react";
+import { useState } from "react";
 import { v4 as uuid } from "uuid";
+import TodoInput from "./TodoInput";
+import { TodoItem } from "./types";
 
 const Todo = () => {
-  const [todoText, setTodoText] = useState("");
-  const [todos, setTodos] = useState<{ id: string; text: string }[]>([]);
-
-  const clearInput = () => setTodoText("");
+  const [todos, setTodos] = useState<TodoItem[]>([]);
 
   const addTodo = (text: string) => {
     setTodos((prevTodos) => [
@@ -15,29 +14,11 @@ const Todo = () => {
       },
       ...prevTodos,
     ]);
-
-    clearInput();
-  };
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTodoText(e.target.value);
-  };
-
-  const handleKeyDown = (e: KeyboardEvent<HTMLElement>) => {
-    if (e.key === "Enter") {
-      addTodo(todoText);
-    }
   };
 
   return (
     <div>
-      <input
-        type="text"
-        data-testid="todo-input"
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        value={todoText}
-      />
+      <TodoInput addTodo={addTodo} />
       <ul>
         {todos.map((todo) => (
           <li key={todo.id}>{todo.text}</li>
