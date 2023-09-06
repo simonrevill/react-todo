@@ -1,46 +1,27 @@
-import { useState } from "react";
-import { v4 as uuid } from "uuid";
 import TodoInput from "./TodoInput";
-import { TodoItem } from "./types";
+import useTodo from "./useTodo";
 
 const Todo = () => {
-  const [todos, setTodos] = useState<TodoItem[]>([]);
-
-  const addTodo = (text: string) => {
-    setTodos((prevTodos) => [
-      {
-        id: uuid(),
-        text: text,
-        completed: false,
-      },
-      ...prevTodos,
-    ]);
-  };
-
-  const toggleCompleted = (id: string) => {
-    setTodos((prevTodos) =>
-      prevTodos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
-    );
-  };
+  const { todos, addTodo, toggleTodo, deleteTodo } = useTodo();
 
   return (
     <div>
       <TodoInput addTodo={addTodo} />
-      <ul>
+      <ol>
         {todos.map((todo) => (
           <li
             key={todo.id}
-            {...(todo.completed && {
-              "data-completed": "true",
-            })}
-            onClick={() => toggleCompleted(todo.id)}
+            className="todo-item"
+            data-completed={todo.completed || undefined}
+            onClick={() => toggleTodo(todo.id)}
           >
             {todo.text}
+            <button type="button" onClick={() => deleteTodo(todo.id)}>
+              Delete
+            </button>
           </li>
         ))}
-      </ul>
+      </ol>
     </div>
   );
 };
