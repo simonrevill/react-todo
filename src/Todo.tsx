@@ -32,9 +32,7 @@ const Todo = () => {
         {todos.map((todo) => (
           <li
             key={todo.id}
-            {...(todo.completed && {
-              "data-completed": "true",
-            })}
+            data-completed={todo.completed || undefined}
             onClick={() => toggleCompleted(todo.id)}
           >
             {todo.text}
