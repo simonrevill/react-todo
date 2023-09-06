@@ -24,10 +24,15 @@ const useTodo = () => {
     );
   };
 
+  const deleteTodo = (id: string) => {
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+  };
+
   return {
     todos,
     addTodo,
     toggleTodo,
+    deleteTodo,
   };
 };
 

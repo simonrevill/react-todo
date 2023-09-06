@@ -2,7 +2,7 @@ import TodoInput from "./TodoInput";
 import useTodo from "./useTodo";
 
 const Todo = () => {
-  const { todos, addTodo, toggleTodo } = useTodo();
+  const { todos, addTodo, toggleTodo, deleteTodo } = useTodo();
 
   return (
     <div>
@@ -16,6 +16,9 @@ const Todo = () => {
             onClick={() => toggleTodo(todo.id)}
           >
             {todo.text}
+            <button type="button" onClick={() => deleteTodo(todo.id)}>
+              Delete
+            </button>
           </li>
         ))}
       </ol>
