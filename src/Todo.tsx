@@ -7,17 +7,18 @@ const Todo = () => {
   return (
     <div>
       <TodoInput addTodo={addTodo} />
-      <ul>
+      <ol>
         {todos.map((todo) => (
           <li
             key={todo.id}
+            className="todo-item"
             data-completed={todo.completed || undefined}
             onClick={() => toggleTodo(todo.id)}
           >
             {todo.text}
           </li>
         ))}
-      </ul>
+      </ol>
     </div>
   );
 };
