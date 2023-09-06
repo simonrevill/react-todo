@@ -1,5 +1,5 @@
 /* eslint-disable testing-library/no-unnecessary-act */
-import { act, render, screen } from "@testing-library/react";
+import { act, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Todo from "./Todo";
 
@@ -39,5 +39,25 @@ describe("Todo application", () => {
     });
 
     expect(item).not.toHaveAttribute("data-completed");
+  });
+
+  it("deletes a todo when clicking the delete button", () => {
+    render(<Todo />);
+
+    act(() => {
+      const input = screen.getByTestId("todo-input");
+      userEvent.type(input, "buy some milk");
+      userEvent.type(input, "{enter}");
+    });
+
+    const item = screen.getByText("buy some milk");
+    expect(item).toBeInTheDocument();
+
+    act(() => {
+      const deleteButton = within(item).getByRole("button", { name: "Delete" });
+      userEvent.click(deleteButton);
+    });
+
+    expect(item).not.toBeInTheDocument();
   });
 });
