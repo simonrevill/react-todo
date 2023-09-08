@@ -14,11 +14,23 @@ body {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-size: inherit;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.app {
+  max-width: 48rem;
+  margin-inline: auto;
+}
+
+input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .todo-item {
@@ -32,6 +44,11 @@ code {
 .todo-item span {
   max-width: 85%;
   word-wrap: break-word;
+}
+
+.delete-todo {
+  padding: 0.25rem;
+  cursor: pointer;
 }
 
 .todo-item[data-completed] {
