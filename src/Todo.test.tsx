@@ -8,11 +8,9 @@ describe("Todo application", () => {
   it("adds a todo to list", async () => {
     render(<Todo />);
 
-    act(() => {
-      const input = screen.getByRole("textbox");
-      userEvent.type(input, "buy some milk");
-      userEvent.type(input, "{enter}");
-    });
+    const input = screen.getByRole("textbox");
+    userEvent.type(input, "buy some milk");
+    userEvent.type(input, "{enter}");
 
     expect(screen.getByText("buy some milk")).toBeInTheDocument();
   });
@@ -20,24 +18,17 @@ describe("Todo application", () => {
   it("mark an item as completed", () => {
     render(<Todo />);
 
-    act(() => {
-      const input = screen.getByRole("textbox");
-      userEvent.type(input, "buy some milk");
-      userEvent.type(input, "{enter}");
-    });
+    const input = screen.getByRole("textbox");
+    userEvent.type(input, "buy some milk");
+    userEvent.type(input, "{enter}");
 
     const item = screen.getByText("buy some milk");
     expect(item).toBeInTheDocument();
 
-    act(() => {
-      userEvent.click(item);
-    });
+    userEvent.click(item);
 
     expect(item.parentElement).toHaveAttribute("data-completed", "true");
-
-    act(() => {
-      userEvent.click(item);
-    });
+    userEvent.click(item);
 
     expect(item.parentElement).not.toHaveAttribute("data-completed");
   });
@@ -54,10 +45,8 @@ describe("Todo application", () => {
     const item = screen.getByText("buy some milk");
     expect(item).toBeInTheDocument();
 
-    act(() => {
-      const deleteButton = screen.getByRole("button", { name: "Delete" });
-      userEvent.click(deleteButton);
-    });
+    const deleteButton = screen.getByRole("button", { name: "Delete" });
+    userEvent.click(deleteButton);
 
     expect(item).not.toBeInTheDocument();
   });
