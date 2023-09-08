@@ -3,11 +3,16 @@ import Item from "./Item";
 import useTodo from "./useTodo";
 
 const Todo = () => {
-  const { todos, addTodo, toggleTodo, deleteTodo } = useTodo();
+  const { todoText, setTodoText, todos, addTodo, toggleTodo, deleteTodo } =
+    useTodo();
 
   return (
     <>
-      <TodoInput addTodo={addTodo} />
+      <TodoInput
+        todoText={todoText}
+        setTodoText={setTodoText}
+        addTodo={addTodo}
+      />
       <ol>
         {todos.map((todo) => (
           <Item
