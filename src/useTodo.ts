@@ -3,6 +3,7 @@ import { v4 as uuid } from "uuid";
 import { TodoItem } from "./types";
 
 const useTodo = () => {
+  const [todoText, setTodoText] = useState("");
   const [todos, setTodos] = useState<TodoItem[]>([]);
 
   const addTodo = (text: string) => {
@@ -29,6 +30,8 @@ const useTodo = () => {
   };
 
   return {
+    todoText,
+    setTodoText,
     todos,
     addTodo,
     toggleTodo,
