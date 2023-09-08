@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/no-node-access */
 /* eslint-disable testing-library/no-unnecessary-act */
 import { act, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -8,7 +9,7 @@ describe("Todo application", () => {
     render(<Todo />);
 
     act(() => {
-      const input = screen.getByTestId("todo-input");
+      const input = screen.getByRole("textbox");
       userEvent.type(input, "buy some milk");
       userEvent.type(input, "{enter}");
     });
@@ -20,7 +21,7 @@ describe("Todo application", () => {
     render(<Todo />);
 
     act(() => {
-      const input = screen.getByTestId("todo-input");
+      const input = screen.getByRole("textbox");
       userEvent.type(input, "buy some milk");
       userEvent.type(input, "{enter}");
     });
@@ -32,20 +33,20 @@ describe("Todo application", () => {
       userEvent.click(item);
     });
 
-    expect(item).toHaveAttribute("data-completed", "true");
+    expect(item.parentElement).toHaveAttribute("data-completed", "true");
 
     act(() => {
       userEvent.click(item);
     });
 
-    expect(item).not.toHaveAttribute("data-completed");
+    expect(item.parentElement).not.toHaveAttribute("data-completed");
   });
 
   it("deletes a todo when clicking the delete button", () => {
     render(<Todo />);
 
     act(() => {
-      const input = screen.getByTestId("todo-input");
+      const input = screen.getByRole("textbox");
       userEvent.type(input, "buy some milk");
       userEvent.type(input, "{enter}");
     });
@@ -54,7 +55,7 @@ describe("Todo application", () => {
     expect(item).toBeInTheDocument();
 
     act(() => {
-      const deleteButton = within(item).getByRole("button", { name: "Delete" });
+      const deleteButton = screen.getByRole("button", { name: "Delete" });
       userEvent.click(deleteButton);
     });
 
