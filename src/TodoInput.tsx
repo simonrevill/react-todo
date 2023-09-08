@@ -1,8 +1,12 @@
-import { ChangeEvent, KeyboardEvent, useState } from "react";
+import { ChangeEvent, Dispatch, KeyboardEvent, SetStateAction } from "react";
 
-const TodoInput = ({ addTodo }: { addTodo: (text: string) => void }) => {
-  const [todoText, setTodoText] = useState("");
+type TodoInputProps = {
+  todoText: string;
+  setTodoText: Dispatch<SetStateAction<string>>;
+  addTodo: (text: string) => void;
+};
 
+const TodoInput = ({ todoText, setTodoText, addTodo }: TodoInputProps) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTodoText(e.target.value);
   };
@@ -10,6 +14,7 @@ const TodoInput = ({ addTodo }: { addTodo: (text: string) => void }) => {
   const handleKeyDown = (e: KeyboardEvent<HTMLElement>) => {
     if (e.key === "Enter") {
       addTodo(todoText);
+      setTodoText("");
     }
   };
 
