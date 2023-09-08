@@ -13,8 +13,12 @@ const Item = ({ todo, toggleTodo, deleteTodo }: ItemProps) => (
     data-completed={todo.completed || undefined}
     onClick={() => toggleTodo(todo.id)}
   >
-    <span>{todo.text}</span>
-    <button type="button" onClick={() => deleteTodo(todo.id)}>
+    {todo.text}
+    <button
+      type="button"
+      className="delete-todo"
+      onClick={() => deleteTodo(todo.id)}
+    >
       Delete
     </button>
   </li>
